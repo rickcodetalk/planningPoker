@@ -10,71 +10,8 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var channel = require('./routes/channel');
 var channelService = require('./js/channelService');
-/*
-var sockjs_opts = {sockjs_url: "http://cdn.sockjs.org/sockjs-0.3.min.js"};
- 
-var sockjs_echo = sockjs.createServer(sockjs_opts);
-sockjs_echo.on('connection', function(conn) {
-    conn.on('data', function(message) {
-        conn.write(message);
-    });
-});
-*/
 
 var app = express();
-
-/*----------------*/
-/*
-var WebSocketServer = require('websocket').server;
-var http = require('http');
- 
-var server = http.createServer(function(request, response) {
-    console.log((new Date()) + ' Received request for ' + request.url);
-    response.writeHead(404);
-    response.end();
-});
-server.listen(8080, function() {
-    console.log((new Date()) + ' Server is listening on port 8080');
-});
-
-const wsServer = new WebSocketServer({
-    httpServer: server,
-    autoAcceptConnections: false
-});
-
-function originIsAllowed(origin) {
-    // TODO SOMEDAY
-    return true;
-}
-
-wsServer.on('request', function(request) {
-    if (!originIsAllowed(request.origin)) {
-        request.reject();
-        console.log((new Date()) + 
-          ' Connection fron origin ' + 
-          request.origin + ' rejected.');
-        return;
-    }
-    
-    //var connection = request.accept('sinedata', request.origin);
-
-    var connection = request.accept();
-    //observableSineWave(this, .1, 10);
-    console.log("request");
-    connection.on('message', function(message) {
-        console.log(message);
-        //connection.sendUTF(message.utf8Data);
-    });
-
-    connection.on('close', function(reasonCode, description) {
-        console.log((new Date()) + ' Peer ' + 
-           connection.remoteAddress + 
-           ' disconnection. Reason: ' + reasonCode);
-    });
-
-});
-*/
-/*---------------------*/
 
 var ws = require("nodejs-websocket")
  
@@ -96,23 +33,6 @@ var server = ws.createServer(function (conn) {
 
 }).listen(8080)
 
-/*
-var http = require('http');
-
-var echo = sockjs.createServer({ sockjs_url: 'http://cdn.jsdelivr.net/sockjs/1.0.1/sockjs.min.js' });
-echo.on('connection', function(conn) {
-    conn.on('data', function(message) {
-        conn.write(message);
-    });
-    conn.on('close', function() {});
-});
-
-var server = http.createServer();
-echo.installHandlers(server, {prefix:'/echo'});
-server.listen(9999, '0.0.0.0');
-*/
-//sockjs_echo.installHandlers(app, {prefix:'/echo'});
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -125,14 +45,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-
-  next();
-});
+var cors = require('cors');
+app.use(cors({ origin: true, credentials: true }));
+app.options(cors({ origin: true, credentials: true }));
 
 app.use('/', routes);
 app.use('/users', users);
