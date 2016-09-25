@@ -8,8 +8,8 @@ const DEFAULT_HEADER = new Headers({ 'Content-Type': 'application/json' });
 const DEFAULT_OPTION = new RequestOptions({ headers: DEFAULT_HEADER });
 //const POKER_URL = 'http://localhost:4000/channel';
 //const SOCK_URL = 'ws://localhost:8080'
-const POKER_URL = 'http://dev.neidoapp.com:4000/channel';
-const SOCK_URL = 'ws://dev.neidoapp.com:8080'
+const POKER_URL = 'http://planningpoker.rickcodetalk.com:4000/channel';
+const SOCK_URL = 'ws://planningpoker.rickcodetalk.com:8080'
 
 @Injectable()
 export class PokerService {
