@@ -4,11 +4,12 @@ import 'rxjs/add/operator/map';
 import { Subject} from 'rxjs/Subject';
 import { $WebSocket } from 'angular2-websocket/angular2-websocket';
 
-const POKER_URL = 'http://localhost:4000/channel';
 const DEFAULT_HEADER = new Headers({ 'Content-Type': 'application/json' });
 const DEFAULT_OPTION = new RequestOptions({ headers: DEFAULT_HEADER });
-//const SOCK_URL = 'ws://localhost:9999/echo'
-const SOCK_URL = 'ws://localhost:8080'
+//const POKER_URL = 'http://localhost:4000/channel';
+//const SOCK_URL = 'ws://localhost:8080'
+const POKER_URL = 'http://dev.neidoapp.com:4000/channel';
+const SOCK_URL = 'ws://dev.neidoapp.com:8080'
 
 @Injectable()
 export class PokerService {

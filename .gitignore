@@ -1,5 +1,7 @@
+.editorconfig
 npm-debug.log
 client/node_modules
 client/.idea
 client/typings
 server/node_modules
+client.back
